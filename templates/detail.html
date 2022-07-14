@@ -11,9 +11,14 @@
   <meta property="og:image"
     content="https://images.unsplash.com/photo-1507726420169-08dc80118357?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1329&q=80" />
 
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/media/favicon.png">
+
   <title>음지의 스포츠</title>
 
   <link rel="stylesheet" href="../static/css/detail.css" />
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,9 +28,7 @@
         <div class="content__leftdiv">
           <h1>{{ sportdata.sportname }}</h1>
           <div>
-            <img
-              src="https://img.olympicchannel.com/images/image/private/t_16-9_480/f_auto/v1538355600/primary/v9l1qhkr0foubpggpxwk"
-              alt="sport defalut image" />
+            <img src="{{ sportdata.imgurl }}" alt="sport defalut image" />
           </div>
         </div>
         <div class="content__rightdiv">
@@ -38,11 +41,16 @@
           </div>
           <div class="content__rightdiv__context">
             <h2>종목 안내</h2>
-            <p>{{ sportdata.text }}</p>
+            <p>{% if sportdata.text | length > 290 %}
+              {{ sportdata.text[:290] }}...
+              {% else %}
+              {{ sportdata.text }}
+              {% endif %}
+            </p>
           </div>
           <div class="content__rightdiv__url">
             <h2>관련 링크</h2>
-            <a>{{ sportdata.link }}</a>
+            <a href="{{ sportdata.link }}">{{ sportdata.link[:40] }}</a>
           </div>
           <div class="content__rightdiv__btn">
             <a href="/text/{{ sportdata.sportname }}">내용 수정</a>
